@@ -5,3 +5,7 @@ A portfolio website utilizing ContentfulCMS for content management
 - nextjs
 - contentfulcms
 - eslint
+
+## icons from
+- fontawesome
+- mdi
