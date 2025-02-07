@@ -7,23 +7,28 @@ export default function WorkExperience() {
     <div className="flex flex-col mt-24 gap-16">
       {experienceData.map(
         ({ date, role, company, description, skills }, index) => (
-          <div key={index} className="md:grid md:grid-cols-[30%,70%] gap-12">
+          <div
+            key={index}
+            className="md:grid md:grid-cols-[30%,70%] gap-12"
+          >
             <p>{date}</p>
             <div>
-              <div className="flex flex-row text-white group hover:text-primary_1 hover:underline transition-all duration-300 ease-in-out">
-                <p className="">
+              <div className="inline-block text-white group hover:text-primary_1 hover:underline transition-all duration-300 ease-in-out">
+                <span>
                   {role} @ {company}
-                </p>
-                <Icon
-                  path={mdiArrowTopRight}
-                  size={0.5}
-                  className="translate-y-[9px] translate-x-1.5 group-hover:hidden transition-all duration-100 ease-in-out"
+                </span>
+                <span className="inline-block">
+                  <Icon
+                    path={mdiArrowTopRight}
+                    size={0.5}
+                    className="translate-y-[2.5px] translate-x-1 group-hover:hidden transition-all duration-100 ease-in-out"
                   />
-                <Icon
-                  path={mdiArrowBottomLeft}
-                  size={0.5}
-                  className="translate-y-[9px] translate-x-1.5 hidden group-hover:block group-hover:scale-125 transition-all duration-100 ease-in-out"
-                />
+                  <Icon
+                    path={mdiArrowBottomLeft}
+                    size={0.5}
+                    className="translate-y-[2.5px] translate-x-1 hidden group-hover:block group-hover:scale-125 transition-all duration-100 ease-in-out"
+                  />
+                </span>
               </div>
               <div className="">
                 <p>{description}</p>
