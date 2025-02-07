@@ -28,7 +28,7 @@ export default function Page() {
           }
         });
       },
-      { threshold: 0.5 } // Adjust based on when you want it to trigger
+      { threshold: 0.5 } // Adjust based on when to trigger
     );
 
     sections.forEach(({ ref }) => {
