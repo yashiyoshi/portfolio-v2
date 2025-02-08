@@ -7,7 +7,7 @@ export default function WorkExperience() {
     <div className="flex flex-col mt-24 gap-16 text-center items-center md:text-start md:items-start">
       {experienceData.map(
         ({ date, role, company, description, skills }, index) => (
-          <div key={index} className="md:grid md:grid-cols-[35%,65%] gap-8">
+          <div key={index} className="md:grid md:grid-cols-[35%,65%] gap-8  ">
             <p>{date}</p>
             <div>
               <div className="inline-block text-white group hover:text-primary_1 hover:underline transition-all duration-300 ease-in-out">
