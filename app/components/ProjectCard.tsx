@@ -26,7 +26,7 @@ export default function ProjectCard() {
                   />
                 </span>
               </div>
-              <p>{description}</p>
+              <p className="mr-4">{description}</p>
               <div className="flex flex-row gap-2 mt-6 text-primary_3 text-xs">
                 {technologies.map((tech, idx) => (
                   <div

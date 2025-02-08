@@ -9,7 +9,7 @@ const socialLinks = [
 
 export default function SocialLinks() {
   return (
-    <footer className="mt-12 md:mt-24 text-primary_1 flex gap-6">
+    <footer className="mt-8 md:mt-12 text-primary_1 flex gap-6">
       {socialLinks.map(({ href, icon }, index) => (
         <a key={index} href={href} target="_blank" rel="noopener noreferrer">
           <Icon path={icon} size={1} />

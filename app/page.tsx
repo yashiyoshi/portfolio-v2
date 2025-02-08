@@ -53,24 +53,24 @@ export default function Page() {
 
   return (
     <main className="w-full">
-      <div className="flex flex-col md:grid md:grid-cols-[45%,55%] text-primary_2 h-auto md:h-screen text-sm sm:text-base">
+      <div className="flex flex-col md:grid md:grid-cols-[50%,50%] text-primary_2 h-auto md:h-screen text-sm sm:text-base">
         {/* Left Section */}
-        <div className="p-6 sm:p-8 md:p-12 lg:p-16 md:sticky top-0 h-auto md:h-min bg-background">
+        <div className="p-6 sm:p-8 md:p-12 lg:p-16 md:sticky top-0 h-auto md:h-screen">
           <div className="text-primary_1">
-            <p className="font-bold text-4xl sm:text-5xl md:text-6xl">
+            <p className="font-bold text-4xl sm:text-5xl md:text-5xl mb-2">
               Yassir Utara
             </p>
-            <p className="text-sm sm:text-base md:text-lg">
+            <p className="text-sm sm:text-base md:text-lg text-primary_1">
               {profile?.mainTitle}
             </p>
-            <p className="text-sm sm:text-base md:text-lg">
+            <p className="text-sm sm:text-base md:text-lg text-primary_1">
               {profile?.subTitle}
             </p>
           </div>
           <p className="mt-6 sm:mt-8 text-wrap">
             {profile?.subheading1}
           </p>
-          <p className="mt-3 sm:mt-4">{profile?.subheading2}</p>
+          {/* <p className="mt-3 sm:mt-4">{profile?.subheading2}</p> */}
           <div className="mt-4">
             <p className="text-primary_1">Status</p>
             <p className={`text-${profile?.availabilityStatus === true ? "indicator_green": "indicator_red"}`}>• {profile?.availabilityStatus === true ? "Available": "Unavailable"}</p>
@@ -82,7 +82,7 @@ export default function Page() {
           </div>
 
           {/* Section Indicator */}
-          <div className="mt-6 sm:mt-8">
+          <div className="mt-6 sm:mt-8 hidden md:block">
             {["about", "experience", "projects"].map((section) => (
               <p
                 key={section}
