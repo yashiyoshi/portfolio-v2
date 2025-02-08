@@ -7,6 +7,7 @@ import Interests from "./components/Interests";
 import Skills from "./components/Skills";
 import WorkExperience from "./components/WorkExperience";
 import ProjectCard from "./components/ProjectCard";
+import Contact from "./components/Contact";
 
 export default function Page() {
   const [profile, setProfile] = useState<Profile | null>(null);
@@ -67,13 +68,22 @@ export default function Page() {
               {profile?.subTitle}
             </p>
           </div>
-          <p className="mt-6 sm:mt-8 text-wrap">
-            {profile?.subheading1}
-          </p>
+          <p className="mt-6 sm:mt-8 text-wrap">{profile?.subheading1}</p>
           {/* <p className="mt-3 sm:mt-4">{profile?.subheading2}</p> */}
           <div className="mt-4">
             <p className="text-primary_1">Status</p>
-            <p className={`text-${profile?.availabilityStatus === true ? "indicator_green": "indicator_red"}`}>• {profile?.availabilityStatus === true ? "Available": "Unavailable"}</p>
+            <p
+              className={`text-${
+                profile?.availabilityStatus === true
+                  ? "indicator_green"
+                  : "indicator_red"
+              }`}
+            >
+              •{" "}
+              {profile?.availabilityStatus === true
+                ? "Available"
+                : "Unavailable"}
+            </p>
             <div className="indent-4 text-white text-xs sm:text-sm">
               <p>{profile?.position1}</p>
               <p>{profile?.position2}</p>
@@ -98,6 +108,11 @@ export default function Page() {
           </div>
 
           <SocialLinks />
+          <footer className="pt-12 sm:pt-16">
+            <p className="text-xs translate-y-6">
+              @ 2025 Proudly made by yours truly using NextJS & Contentful
+            </p>
+          </footer>
         </div>
 
         {/* Right Section */}
@@ -135,11 +150,10 @@ export default function Page() {
             <ProjectCard />
           </div>
 
-          <footer className="pt-12 sm:pt-16">
-            <p className="text-xs translate-y-6 text-center">
-              @ 2025 Proudly made by yours truly using NextJS & Contentful
-            </p>
-          </footer>
+          {/* Outro/Contact Me Section */}
+          <div id="contact" className="pt-16 sm:pt-24">
+            <Contact />
+          </div>
         </div>
       </div>
     </main>
