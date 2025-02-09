@@ -8,6 +8,7 @@ import Skills from "./components/Skills";
 import WorkExperience from "./components/WorkExperience";
 import ProjectCard from "./components/ProjectCard";
 import Contact from "./components/Contact";
+import About from "./components/About";
 
 export default function Page() {
   const [profile, setProfile] = useState<Profile | null>(null);
@@ -118,23 +119,7 @@ export default function Page() {
         {/* Right Section */}
         <div className="md:overflow-y-auto p-6 sm:p-8 md:p-12 lg:p-16">
           <div id="about" ref={aboutRef} className="pt-4">
-            <p className="text-wrap">
-              Lorem ipsum dolor sit amet consectetur. Dictum tortor risus
-              consectetur aliquet laoreet venenatis ultrices a tortor. Elementum
-              facilisi mattis nibh vivamus arcu est libero. Sed in amet orci sed
-              quam turpis maecenas dignissim. Congue lacus lectus tincidunt
-              mattis suspendisse ut eget. Tempor eu arcu felis neque aenean
-              ultrices enim. Vel integer nulla feugiat vulputate vitae molestie
-              massa risus felis. Morbi sed augue ac ullamcorper tellus ac
-              tristique eu. Posuere tempus at adipiscing aliquam.
-            </p>
-
-            <p className="mt-6 sm:mt-8">
-              Lorem ipsum dolor sit amet consectetur. Dictum tortor risus
-              consectetur aliquet laoreet venenatis ultrices a tortor. Elementum
-              facilisi mattis nibh vivamus arcu est libero. Sed in amet orci sed
-              quam turpis maecenas dignissim.
-            </p>
+            <About />
           </div>
 
           <Interests />
@@ -151,7 +136,7 @@ export default function Page() {
           </div>
 
           {/* Outro/Contact Me Section */}
-          <div id="contact" className="pt-16 sm:pt-24">
+          <div id="contact" className="py-12 sm:pt-24">
             <Contact />
           </div>
         </div>

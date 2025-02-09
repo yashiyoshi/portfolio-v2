@@ -1,6 +1,7 @@
 import { createClient, Entry } from "contentful";
 import { Profile } from "../app/types/profile";
 import { Socials } from "../app/types/socials";
+import { AboutType } from "@/app/types/about";
 
 const client = createClient({
   space: process.env.CONTENTFUL_SPACE_ID as string,
@@ -22,3 +23,7 @@ export async function fetchSocials(): Promise<Socials | null> {
   return socials.length > 0 ? socials[0] : null;
 }
 
+export async function fetchAbout(): Promise<AboutType | null> {
+  const about = await fetchContentfulEntries<AboutType>("about");
+  return about.length > 0 ? about[0] : null;
+}
