@@ -13,7 +13,7 @@ export default function Skills() {
   return (
     <div className="text-primary_1 text-center mt-12">
       <p>Interests</p>
-      <div className="flex gap-16 mt-4 justify-center items-center">
+      <div className="flex gap-16 mt-4 justify-center items-center overflow-auto">
         {interests.map(({ path, label }) => (
           <div key={label} className="flex flex-col items-center">
             <Icon path={path} size={1.5} />

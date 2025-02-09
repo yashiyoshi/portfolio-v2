@@ -11,11 +11,10 @@ export default function About() {
       setAbout(aboutData);
     }
     getAbout();
-    console.log(getAbout());
   }, []);
 
   return (
-    <div className="text-wrap">
+    <div className="text-wrap text-center">
       <p>{about?.mainParagraph}</p>
       <p className="mt-6 sm:mt-8">{about?.subParagraph}</p>
     </div>

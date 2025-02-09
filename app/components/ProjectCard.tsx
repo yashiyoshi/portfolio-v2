@@ -4,15 +4,20 @@ import { projectsData } from "../data/projects";
 
 export default function ProjectCard() {
   return (
-    <div className="flex flex-col gap-12 mt-24">
+    <div className="flex flex-col gap-12">
       {projectsData.map(
         ({ name, description, image, link, technologies }, index) => (
-          <div key={index} className="grid grid-cols-[80%,20%] p-4 rounded-md">
+          <div key={index} className="flex flex-col p-4 rounded-md">
+            <div className="relative w-full h-0 pb-[50%] overflow-hidden rounded-sm bg-red-100">
+              <img
+                src={image}
+                alt={name}
+                className="absolute top-0 left-0 w-[1000px] h-[400px] object-cover"
+              />
+            </div>
             <div className="flex-col">
               <div className="inline-block text-white group hover:text-primary_1 hover:underline transition-all duration-300 ease-in-out">
-                <span>
-                  {name}
-                </span>
+                <span>{name}</span>
                 <span className="inline-block">
                   <Icon
                     path={mdiArrowTopRight}
@@ -27,7 +32,7 @@ export default function ProjectCard() {
                 </span>
               </div>
               <p className="mr-4">{description}</p>
-              <div className="flex flex-row gap-2 mt-6 text-primary_3 text-xs">
+              <div className="flex flex-wrap gap-2 mt-6 text-primary_3 text-xs">
                 {technologies.map((tech, idx) => (
                   <div
                     key={idx}
@@ -37,13 +42,6 @@ export default function ProjectCard() {
                   </div>
                 ))}
               </div>
-            </div>
-            <div className="relative w-full h-0 pb-[100%] overflow-hidden rounded-sm">
-              <img
-                src={image}
-                alt={name}
-                className="absolute top-0 left-0 w-full h-full object-cover"
-              />
             </div>
           </div>
         )

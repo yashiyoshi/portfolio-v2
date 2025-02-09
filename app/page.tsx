@@ -9,55 +9,85 @@ import WorkExperience from "./components/WorkExperience";
 import ProjectCard from "./components/ProjectCard";
 import Contact from "./components/Contact";
 import About from "./components/About";
+import { useIntersectionObserver } from "./hooks/useIntersectionObserver";
 
-export default function Page() {
+// TODO
+// Use ReactQuery to fetch to avoid too many API requests
+
+function useProfile() {
   const [profile, setProfile] = useState<Profile | null>(null);
-  const [activeSection, setActiveSection] = useState("about");
-
-  const aboutRef = useRef(null);
-  const experienceRef = useRef(null);
-  const projectsRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
+    let isMounted = true;
+
     async function getProfile() {
-      const profileData = await fetchProfile();
-      setProfile(profileData);
+      try {
+        const profileData = await fetchProfile();
+        if (isMounted) {
+          setProfile(profileData);
+          setIsLoading(false);
+        }
+      } catch (err) {
+        if (isMounted) {
+          setError(err as Error);
+          setIsLoading(false);
+        }
+      }
     }
+
     getProfile();
 
-    const sections = [
-      { id: "about", ref: aboutRef },
-      { id: "experience", ref: experienceRef },
-      { id: "projects", ref: projectsRef },
-    ];
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { threshold: 0.5 } // Adjust based on when to trigger
-    );
-
-    sections.forEach(({ ref }) => {
-      if (ref.current) observer.observe(ref.current);
-    });
-
     return () => {
-      sections.forEach(({ ref }) => {
-        if (ref.current) observer.unobserve(ref.current);
-      });
+      isMounted = false;
     };
   }, []);
+
+  return { profile, isLoading, error };
+}
+
+export default function Page() {
+  const { profile, isLoading } = useProfile();
+
+  const sectionRefs = {
+    about: useRef<HTMLDivElement>(null),
+    experience: useRef<HTMLDivElement>(null),
+    projects: useRef<HTMLDivElement>(null),
+    contact: useRef<HTMLDivElement>(null),
+  };
+
+  const { activeSection, visibleSections } = useIntersectionObserver({
+    refs: Object.values(sectionRefs),
+    threshold: 0.2,
+    rootMargin: "0px 0px -10% 0px",
+  });
+
+  // Section indicator component
+  const SectionIndicator = ({ section }: { section: string }) => (
+    <p
+      className={`transition-all duration-500 ease-in-out transform ${
+        activeSection === section
+          ? "text-lg text-primary_1 translate-x-2"
+          : "translate-x-0"
+      }`}
+    >
+      <span
+        className={`transition-all duration-500 ${
+          activeSection === section ? "mr-4" : "mr-2"
+        }`}
+      >
+        {activeSection === section ? "------" : "---"}
+      </span>
+      {section.toUpperCase()}
+    </p>
+  );
 
   return (
     <main className="w-full">
       <div className="flex flex-col md:grid md:grid-cols-[50%,50%] text-primary_2 h-auto md:h-screen text-sm sm:text-base">
         {/* Left Section */}
-        <div className="p-6 sm:p-8 md:p-12 lg:p-16 md:sticky top-0 h-auto md:h-screen">
+        <div className="p-6 sm:p-8 md:p-12 lg:p-16 md:sticky top-0 h-auto md:h-screen flex flex-col">
           <div className="text-primary_1">
             <p className="font-bold text-4xl sm:text-5xl md:text-5xl mb-2">
               Yassir Utara
@@ -69,8 +99,9 @@ export default function Page() {
               {profile?.subTitle}
             </p>
           </div>
+
           <p className="mt-6 sm:mt-8 text-wrap">{profile?.subheading1}</p>
-          {/* <p className="mt-3 sm:mt-4">{profile?.subheading2}</p> */}
+
           <div className="mt-4">
             <p className="text-primary_1">Status</p>
             <p
@@ -93,52 +124,92 @@ export default function Page() {
           </div>
 
           {/* Section Indicator */}
-          <div className="mt-6 sm:mt-8 hidden md:block">
+          <div className="mt-6 sm:mt-8 hidden md:block space-y-2">
             {["about", "experience", "projects"].map((section) => (
-              <p
-                key={section}
-                className={`transition-all duration-300 ease-in-out ${
-                  activeSection === section ? "text-lg text-primary_1" : ""
-                }`}
-              >
-                {activeSection === section
-                  ? `------ ${section.toUpperCase()}`
-                  : `--- ${section.toUpperCase()}`}
-              </p>
+              <SectionIndicator key={section} section={section} />
             ))}
           </div>
 
-          <SocialLinks />
-          <footer className="pt-12 sm:pt-16">
-            <p className="text-xs translate-y-6">
-              @ 2025 Proudly made by yours truly using NextJS & Contentful
-            </p>
-          </footer>
+          <div className="mt-auto">
+            <SocialLinks />
+            <footer className="md:py-6 hidden md:block">
+              <p className="text-xs">
+                @ 2025 Proudly made by yours truly using NextJS & Contentful
+              </p>
+            </footer>
+          </div>
         </div>
 
         {/* Right Section */}
         <div className="md:overflow-y-auto p-6 sm:p-8 md:p-12 lg:p-16">
-          <div id="about" ref={aboutRef} className="pt-4">
+          {/* About Section */}
+          <div
+            id="about"
+            ref={sectionRefs.about}
+            className={`transform transition-all duration-700
+              ${
+                visibleSections.has("about")
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-10"
+              }`}
+          >
             <About />
+            <div className="mt-12">
+              <Interests />
+            </div>
+            <div className="mt-12">
+              <Skills />
+            </div>
           </div>
 
-          <Interests />
-          <Skills />
-
-          {/* Work Experience Section */}
-          <div id="experience" ref={experienceRef} className="pt-16 sm:pt-24">
+          {/* Experience Section */}
+          <div
+            id="experience"
+            ref={sectionRefs.experience}
+            className={`transform transition-all duration-700 mt-12 pt-16 sm:pt-24
+              ${
+                visibleSections.has("experience")
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-10"
+              }`}
+          >
             <WorkExperience />
           </div>
 
           {/* Projects Section */}
-          <div id="projects" ref={projectsRef} className="pt-16 sm:pt-24">
+          <div
+            id="projects"
+            ref={sectionRefs.projects}
+            className={`transform transition-all duration-700 mt-12 pt-16 sm:pt-24
+              ${
+                visibleSections.has("projects")
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-10"
+              }`}
+          >
             <ProjectCard />
           </div>
 
-          {/* Outro/Contact Me Section */}
-          <div id="contact" className="py-12 sm:pt-24">
+          {/* Contact Section */}
+          <div
+            id="contact"
+            ref={sectionRefs.contact}
+            className={`transform transition-all duration-700 py-36 sm:pt-24
+              ${
+                visibleSections.has("contact")
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-10"
+              }`}
+          >
             <Contact />
           </div>
+
+          {/* Mobile Footer */}
+          <footer className="md:hidden text-center mt-8">
+            <p className="text-xs">
+              @ 2025 Proudly made by yours truly using NextJS & Contentful
+            </p>
+          </footer>
         </div>
       </div>
     </main>
