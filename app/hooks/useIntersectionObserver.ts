@@ -8,7 +8,7 @@ interface UseIntersectionObserverProps {
 
 export const useIntersectionObserver = ({
   refs,
-  threshold = 0.1,
+  threshold = 0.5,
   rootMargin = "0px",
 }: UseIntersectionObserverProps) => {
   const [activeSection, setActiveSection] = useState<string>("");
@@ -17,9 +17,6 @@ export const useIntersectionObserver = ({
   );
 
   useEffect(() => {
-    console.log("Current visible sections:", Array.from(visibleSections));
-    console.log("Current active section:", activeSection);
-
     const observerCallback: IntersectionObserverCallback = (entries) => {
       entries.forEach((entry) => {
         const sectionId = entry.target.id;

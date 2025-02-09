@@ -1,22 +1,18 @@
 import Icon from "@mdi/react";
 import { mdiLinkedin, mdiGithub, mdiInstagram } from "@mdi/js";
-import { useEffect, useState } from "react";
-import { Socials } from "../types/socials";
+import { useQuery } from "@tanstack/react-query";
 import { fetchSocials } from "@/lib/contentful";
-
-
+import { Socials } from "../types/socials";
 
 export default function SocialLinks() {
-  const [socials, setSocials] = useState<Socials | null>(null);
-
-  useEffect(() => {
-    async function getSocials() {
-      const socialsData = await fetchSocials();
-      setSocials(socialsData);
-    }
-    getSocials();
+  const { data: socials, isLoading, error } = useQuery<Socials>({
+    queryKey: ["socials"],
+    queryFn: fetchSocials,
+    staleTime: 1000 * 60 * 5,
   });
 
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error loading socials</p>;
 
   return (
     <footer className="mt-8 md:mt-12 text-primary_1 flex gap-6">

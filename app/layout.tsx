@@ -1,23 +1,19 @@
+"use client";
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./globals.css";
-import { EXAMPLE_PATH, CMS_NAME } from "@/lib/constants";
 
+const queryClient = new QueryClient();
 
-export const metadata = {
-  title: `Next.js and ${CMS_NAME} Example`,
-  description: `This is a blog built with Next.js and ${CMS_NAME}.`,
-};
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className="bg-background">
-        <section className="min-h-screen">
-          <main>{children}</main>
-        </section>
+        <QueryClientProvider client={queryClient}>
+          <section className="min-h-screen">
+            <main>{children}</main>
+          </section>
+        </QueryClientProvider>
       </body>
     </html>
   );

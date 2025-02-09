@@ -1,4 +1,4 @@
-import { createClient, Entry } from "contentful";
+import { createClient } from "contentful";
 import { Profile } from "../app/types/profile";
 import { Socials } from "../app/types/socials";
 import { AboutType } from "@/app/types/about";
@@ -13,17 +13,20 @@ export async function fetchContentfulEntries<T>(contentType: string): Promise<T[
   return entries.items.map((item) => item.fields as T);
 }
 
-export async function fetchProfile(): Promise<Profile | null> {
+export async function fetchProfile(): Promise<Profile> {
   const profiles = await fetchContentfulEntries<Profile>("profile");
-  return profiles.length > 0 ? profiles[0] : null;
+  if (profiles.length === 0) throw new Error("Profile not found");
+  return profiles[0];
 }
 
-export async function fetchSocials(): Promise<Socials | null> {
+export async function fetchSocials(): Promise<Socials> {
   const socials = await fetchContentfulEntries<Socials>("socials");
-  return socials.length > 0 ? socials[0] : null;
+  if (socials.length === 0) throw new Error("Socials not found");
+  return socials[0];
 }
 
-export async function fetchAbout(): Promise<AboutType | null> {
+export async function fetchAbout(): Promise<AboutType> {
   const about = await fetchContentfulEntries<AboutType>("about");
-  return about.length > 0 ? about[0] : null;
+  if (about.length === 0) throw new Error("About section not found");
+  return about[0];
 }

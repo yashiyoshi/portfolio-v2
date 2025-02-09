@@ -1,7 +1,7 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
+import { useRef } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { fetchProfile } from "../lib/contentful";
-import { Profile } from "../app/types/profile";
 import SocialLinks from "./components/SocialLinks";
 import Interests from "./components/Interests";
 import Skills from "./components/Skills";
@@ -11,44 +11,12 @@ import Contact from "./components/Contact";
 import About from "./components/About";
 import { useIntersectionObserver } from "./hooks/useIntersectionObserver";
 
-// TODO
-// Use ReactQuery to fetch to avoid too many API requests
-
-function useProfile() {
-  const [profile, setProfile] = useState<Profile | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  useEffect(() => {
-    let isMounted = true;
-
-    async function getProfile() {
-      try {
-        const profileData = await fetchProfile();
-        if (isMounted) {
-          setProfile(profileData);
-          setIsLoading(false);
-        }
-      } catch (err) {
-        if (isMounted) {
-          setError(err as Error);
-          setIsLoading(false);
-        }
-      }
-    }
-
-    getProfile();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  return { profile, isLoading, error };
-}
-
 export default function Page() {
-  const { profile, isLoading } = useProfile();
+  const { data: profile, isLoading, error } = useQuery({
+    queryKey: ["profile"],
+    queryFn: fetchProfile,
+    staleTime: 1000 * 60 * 5,
+  });
 
   const sectionRefs = {
     about: useRef<HTMLDivElement>(null),
@@ -63,7 +31,6 @@ export default function Page() {
     rootMargin: "0px 0px -10% 0px",
   });
 
-  // Section indicator component
   const SectionIndicator = ({ section }: { section: string }) => (
     <p
       className={`transition-all duration-500 ease-in-out transform ${
@@ -82,6 +49,9 @@ export default function Page() {
       {section.toUpperCase()}
     </p>
   );
+
+  if (isLoading) return <p>Loading profile...</p>;
+  if (error) return <p>Error loading profile</p>;
 
   return (
     <main className="w-full">
@@ -106,15 +76,10 @@ export default function Page() {
             <p className="text-primary_1">Status</p>
             <p
               className={`text-${
-                profile?.availabilityStatus === true
-                  ? "indicator_green"
-                  : "indicator_red"
+                profile?.availabilityStatus ? "indicator_green" : "indicator_red"
               }`}
             >
-              •{" "}
-              {profile?.availabilityStatus === true
-                ? "Available"
-                : "Unavailable"}
+              • {profile?.availabilityStatus ? "Available" : "Unavailable"}
             </p>
             <div className="indent-4 text-white text-xs sm:text-sm">
               <p>{profile?.position1}</p>
@@ -146,12 +111,11 @@ export default function Page() {
           <div
             id="about"
             ref={sectionRefs.about}
-            className={`transform transition-all duration-700
-              ${
-                visibleSections.has("about")
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-10"
-              }`}
+            className={`transform transition-all duration-700 ${
+              visibleSections.has("about")
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
+            }`}
           >
             <About />
             <div className="mt-12">
@@ -166,12 +130,11 @@ export default function Page() {
           <div
             id="experience"
             ref={sectionRefs.experience}
-            className={`transform transition-all duration-700 mt-12 pt-16 sm:pt-24
-              ${
-                visibleSections.has("experience")
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-10"
-              }`}
+            className={`transform transition-all duration-700 mt-12 pt-16 sm:pt-24 ${
+              visibleSections.has("experience")
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
+            }`}
           >
             <WorkExperience />
           </div>
@@ -180,12 +143,11 @@ export default function Page() {
           <div
             id="projects"
             ref={sectionRefs.projects}
-            className={`transform transition-all duration-700 mt-12 pt-16 sm:pt-24
-              ${
-                visibleSections.has("projects")
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-10"
-              }`}
+            className={`transform transition-all duration-700 mt-12 pt-16 sm:pt-24 ${
+              visibleSections.has("projects")
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
+            }`}
           >
             <ProjectCard />
           </div>
@@ -194,12 +156,11 @@ export default function Page() {
           <div
             id="contact"
             ref={sectionRefs.contact}
-            className={`transform transition-all duration-700 py-36 sm:pt-24
-              ${
-                visibleSections.has("contact")
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-10"
-              }`}
+            className={`transform transition-all duration-700 py-36 sm:pt-24 ${
+              visibleSections.has("contact")
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
+            }`}
           >
             <Contact />
           </div>
