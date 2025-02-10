@@ -12,7 +12,11 @@ import About from "./components/About";
 import { useIntersectionObserver } from "./hooks/useIntersectionObserver";
 
 export default function Page() {
-  const { data: profile, isLoading, error } = useQuery({
+  const {
+    data: profile,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["profile"],
     queryFn: fetchProfile,
     staleTime: 1000 * 60 * 5,
@@ -50,9 +54,6 @@ export default function Page() {
     </p>
   );
 
-  if (isLoading) return <p>Loading profile...</p>;
-  if (error) return <p>Error loading profile</p>;
-
   return (
     <main className="w-full">
       <div className="flex flex-col md:grid md:grid-cols-[50%,50%] text-primary_2 h-auto md:h-screen text-sm sm:text-base">
@@ -75,11 +76,13 @@ export default function Page() {
           <div className="mt-4">
             <p className="text-primary_1">Status</p>
             <p
-              className={`text-${
-                profile?.availabilityStatus ? "indicator_green" : "indicator_red"
+              className={`${
+                profile?.availabilityStatus
+                  ? "text-indicator_green"
+                  : "text-indicator_red"
               }`}
             >
-              • {profile?.availabilityStatus ? "Available" : "Unavailable"}
+              • {profile?.availabilityStatus ? "Available for work" : "Unavailable for work"}
             </p>
             <div className="indent-4 text-white text-xs sm:text-sm">
               <p>{profile?.position1}</p>

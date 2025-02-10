@@ -2,6 +2,8 @@ import { createClient } from "contentful";
 import { Profile } from "../app/types/profile";
 import { Socials } from "../app/types/socials";
 import { AboutType } from "@/app/types/about";
+import { Experience } from "@/app/types/experience";
+import { Projects } from "@/app/types/projects";
 
 const client = createClient({
   space: process.env.CONTENTFUL_SPACE_ID as string,
@@ -29,4 +31,12 @@ export async function fetchAbout(): Promise<AboutType> {
   const about = await fetchContentfulEntries<AboutType>("about");
   if (about.length === 0) throw new Error("About section not found");
   return about[0];
+}
+
+export async function fetchExperience(): Promise<Experience[]> {
+  return fetchContentfulEntries<Experience>("experience");
+}
+
+export async function fetchProjects(): Promise<Projects[]> {
+  return fetchContentfulEntries<Projects>("projects");
 }

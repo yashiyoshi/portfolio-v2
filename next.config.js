@@ -1,8 +1,9 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
   images: {
-    loader: "custom",
+    // add custom loader next time
     formats: ["image/avif", "image/webp"],
+    domains: ["images.ctfassets.net"]
   },
   env: {
     CONTENTFUL_SPACE_ID: process.env.CONTENTFUL_SPACE_ID,
