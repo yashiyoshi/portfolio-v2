@@ -21,14 +21,14 @@ export default function ProjectCard() {
   if (!projects || projects.length === 0) return <p>No project data available</p>;
 
   return (
-    <div className="flex flex-col gap-12">
+    <div className="flex flex-col gap-12 my-4">
       {projects.map((project, index) => {
         const imageUrl = project.image?.fields?.file?.url;
 
         return (
-          <div key={index} className="flex flex-col p-4 rounded-md">
+          <div key={index} className="flex flex-col p-4 rounded-md hover:bg-primary_2 hover:bg-opacity-5 transition ease-in-out duration-300">
             {imageUrl && (
-              <div className="relative w-full h-0 pb-[50%] overflow-hidden rounded-sm bg-red-100">
+              <div className="relative w-full h-0 pb-[50%] overflow-hidden rounded-sm">
                 <Image
                   src={`https:${imageUrl}`}
                   alt={project.title}

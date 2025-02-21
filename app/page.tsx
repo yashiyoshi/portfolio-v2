@@ -5,11 +5,13 @@ import { fetchProfile } from "../lib/contentful";
 import SocialLinks from "./components/SocialLinks";
 import Interests from "./components/Interests";
 import Skills from "./components/Skills";
+import { mdiChevronTripleDown } from "@mdi/js";
 import WorkExperience from "./components/WorkExperience";
 import ProjectCard from "./components/ProjectCard";
 import Contact from "./components/Contact";
 import About from "./components/About";
 import { useIntersectionObserver } from "./hooks/useIntersectionObserver";
+import Icon from "@mdi/react";
 
 export default function Page() {
   const {
@@ -60,7 +62,7 @@ export default function Page() {
         {/* Left Section */}
         <div className="p-6 sm:p-8 md:p-12 lg:p-16 md:sticky top-0 h-auto md:h-screen flex flex-col">
           <div className="text-primary_1">
-            <p className="font-bold text-4xl sm:text-5xl md:text-5xl mb-2">
+            <p className="font-bold text-nowrap text-4xl sm:text-5xl md:text-5xl mb-2">
               Yassir Utara
             </p>
             <p className="text-sm sm:text-base md:text-lg text-primary_1">
@@ -82,7 +84,10 @@ export default function Page() {
                   : "text-indicator_red"
               }`}
             >
-              • {profile?.availabilityStatus ? "Available for work" : "Unavailable for work"}
+              •{" "}
+              {profile?.availabilityStatus
+                ? "Available for work"
+                : "Unavailable for work"}
             </p>
             <div className="indent-4 text-white text-xs sm:text-sm">
               <p>{profile?.position1}</p>
@@ -109,7 +114,7 @@ export default function Page() {
         </div>
 
         {/* Right Section */}
-        <div className="md:overflow-y-auto p-6 sm:p-8 md:p-12 lg:p-16">
+        <div className="md:overflow-y-auto p-6 sm:p-8 md:p-12 lg:p-16 flex flex-col gap-4">
           {/* About Section */}
           <div
             id="about"
@@ -121,11 +126,19 @@ export default function Page() {
             }`}
           >
             <About />
+            {/* Hard code for now */}
             <div className="mt-12">
               <Interests />
             </div>
-            <div className="mt-12">
+
+            {/* TODO: find an alternative as to how to showcase this */}
+            {/* <div className="mt-12">
               <Skills />
+            </div> */}
+
+            <div className="flex flex-col text-sm text-center items-center justify-center mt-20">
+              <p>scroll down c:</p>
+              <Icon path={mdiChevronTripleDown} size={1} className="animate-bounce mt-4" />
             </div>
           </div>
 

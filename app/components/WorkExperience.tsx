@@ -43,7 +43,7 @@ export default function WorkExperience() {
   const experience = sortExperience(unsortedExperience);
 
   return (
-    <div className="flex flex-col gap-16 text-center items-center md:text-start md:items-start">
+    <div className="flex flex-col gap-12 text-center items-center md:text-start md:items-start">
       {experience.map((experience, index) => (
         <div key={index} className="lg:grid lg:grid-cols-[35%,65%] gap-8">
           <p>
