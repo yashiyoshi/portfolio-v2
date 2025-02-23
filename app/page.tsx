@@ -92,11 +92,11 @@ export default function Page() {
           }
         `}
           >
-            <div className="overflow-hidden">
+            <div className="">
               <p
                 className={`
               font-bold text-nowrap 
-              text-4xl sm:text-5xl md:text-5xl 
+              text-5xl sm:text-5xl md:text-4xl lg:text-5xl
               mb-2 gradient-text text-transparent 
               animate-gradient
               transition-all
@@ -113,7 +113,7 @@ export default function Page() {
               </p>
               <p
                 className={`
-              text-sm sm:text-base md:text-lg 
+              text-sm sm:text-base
               text-primary_1
               transition-all
               duration-1000
@@ -129,8 +129,8 @@ export default function Page() {
               </p>
               <p
                 className={`
-              text-sm sm:text-base md:text-lg 
-              text-primary_1
+              text-sm sm:text-base
+              text-primary_2
               transition-all
               duration-1000
               delay-800
