@@ -17,14 +17,15 @@ export default function WorkExperience() {
 
   const sortExperience = (experiences: Experience[]) => {
     return [...experiences].sort((a, b) => {
-
       const parseDate = (dateStr: string) => {
         const [month, year] = dateStr.split(" ");
         return new Date(`${month} 1, ${year}`);
       };
 
-      const aEndDate = a.endDate === "PRESENT" ? new Date("9999-12-31") : parseDate(a.endDate);
-      const bEndDate = b.endDate === "PRESENT" ? new Date("9999-12-31") : parseDate(b.endDate);
+      const aEndDate =
+        a.endDate === "PRESENT" ? new Date("9999-12-31") : parseDate(a.endDate);
+      const bEndDate =
+        b.endDate === "PRESENT" ? new Date("9999-12-31") : parseDate(b.endDate);
 
       if (aEndDate > bEndDate) return -1;
       if (aEndDate < bEndDate) return 1;
@@ -37,7 +38,7 @@ export default function WorkExperience() {
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading experience section</p>;
-  if (!unsortedExperience || unsortedExperience.length === 0) 
+  if (!unsortedExperience || unsortedExperience.length === 0)
     return <p>No experience data available</p>;
 
   const experience = sortExperience(unsortedExperience);
@@ -46,13 +47,23 @@ export default function WorkExperience() {
     <div className="flex flex-col gap-12 text-center items-center md:text-start md:items-start">
       {experience.map((experience, index) => (
         <div key={index} className="lg:grid lg:grid-cols-[35%,65%] gap-8">
-          <p>
-            {experience.startDate || "Unknown Start"} -- {experience.endDate || "Present"}
-          </p>
+          <div
+            className={`${
+              experience.endDate === "PRESENT" ? "text-primary_1" : ""
+            }`}
+          >
+            <p>
+              {experience.startDate || "Unknown Start"} --{" "}
+              {experience.endDate || "Present"}
+            </p>
+          </div>
+
           <div>
             <div className="inline-block text-white group hover:text-primary_1 hover:underline transition-all duration-300 ease-in-out">
               <a href={experience.experienceLink || "#"} target="__blank">
-                <span>{experience.experienceTitle || "Untitled Experience"}</span>
+                <span>
+                  {experience.experienceTitle || "Untitled Experience"}
+                </span>
                 <span className="inline-block">
                   <Icon
                     path={mdiArrowTopRight}
