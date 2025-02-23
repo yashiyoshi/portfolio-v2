@@ -2,3 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 @import "~typeface-roboto-mono/index.css";
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.gradient-text {
+  background: linear-gradient(
+    to right,
+    #5F9DFF,
+    #92BCFF,
+    #5F9DFF,
+    #c8c7fb,
+    #5F9DFF,
+    #92BCFF,
+    #5F9DFF
+  );
+  background-size: 300% 300%;
+
+  background-clip: text;
+}

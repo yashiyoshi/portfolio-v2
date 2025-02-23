@@ -9,6 +9,23 @@ export default {
   ],
   theme: {
     extend: {
+      keyframes: {
+        gradient: {
+          "0%": { backgroundPosition: "0% 50%" },
+          "100%": { backgroundPosition: "100% 50%" },
+        },
+        fadeIn: {
+          "0%": { opacity: "0%" },
+          "100%": { opacity: "100%" },
+        },
+      },
+      animation: {
+        gradient: "gradient 6s ease-in infinite",
+        "fade-in": "fadeIn 1s ease-out forwards 0.25s",
+        "fade-in-delay-1": "fadeIn 2s ease-out forwards 0.75s",
+        "fade-in-delay-2": "fadeIn 2s ease-out forwards 1.25s",
+        "fade-in-delay-3": "fadeIn 1s ease-out forwards 2s",
+      },
       colors: {
         background: "#0D192A",
         primary_1: "#92BCFF",

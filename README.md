@@ -3,8 +3,8 @@ A portfolio website utilizing ContentfulCMS for content management
 
 ## technologies used
 - nextjs
+- tailwindcss
 - contentfulcms
-- eslint
 
 ## icons from
 - fontawesome

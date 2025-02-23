@@ -13,7 +13,7 @@ export default function About() {
   if (error) return <p>Error loading about section</p>;
 
   return (
-    <div className="text-wrap text-center">
+    <div className="text-wrap">
       <p>{about?.mainParagraph}</p>
       <p className="mt-6 sm:mt-8">{about?.subParagraph}</p>
     </div>

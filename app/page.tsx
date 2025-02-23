@@ -61,8 +61,8 @@ export default function Page() {
       <div className="flex flex-col md:grid md:grid-cols-[50%,50%] text-primary_2 h-auto md:h-screen text-sm sm:text-base">
         {/* Left Section */}
         <div className="p-6 sm:p-8 md:p-12 lg:p-16 md:sticky top-0 h-auto md:h-screen flex flex-col">
-          <div className="text-primary_1">
-            <p className="font-bold text-nowrap text-4xl sm:text-5xl md:text-5xl mb-2">
+          <div className="">
+            <p className="font-bold text-nowrap text-4xl sm:text-5xl md:text-5xl mb-2 gradient-text text-transparent animate-gradient">
               Yassir Utara
             </p>
             <p className="text-sm sm:text-base md:text-lg text-primary_1">
