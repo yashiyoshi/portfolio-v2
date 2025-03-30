@@ -130,7 +130,7 @@ export default function Page() {
               <p
                 className={`
               text-sm sm:text-base
-              text-primary_2
+              text-primary_1
               transition-all
               duration-1000
               delay-800
