@@ -1,23 +1,20 @@
-"use client";
-
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import type { Metadata } from "next";
 import "./globals.css";
-import Head from "next/head";
+import { Providers } from "./providers";
 
-const queryClient = new QueryClient();
+export const metadata: Metadata = {
+  title: "yassir's portfolio",
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <Head>
-        <title>yassir's 2025</title>
-      </Head>
       <body className="bg-background">
-        <QueryClientProvider client={queryClient}>
+        <Providers>
           <section className="min-h-screen">
             <main>{children}</main>
           </section>
-        </QueryClientProvider>
+        </Providers>
       </body>
     </html>
   );
