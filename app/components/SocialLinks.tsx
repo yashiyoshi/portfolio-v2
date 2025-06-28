@@ -16,13 +16,13 @@ export default function SocialLinks() {
 
   return (
     <footer className="mt-8 md:mt-12 text-primary_1 flex gap-6">
-      <a href={socials?.linkedin} target="__blank">
+      <a href={socials?.linkedin} target="__blank" className="hover:text-primary_3 transition-colors duration-300">
         <Icon path={mdiLinkedin} size={1} />
       </a>
-      <a href={socials?.github} target="__blank">
+      <a href={socials?.github} target="__blank" className="hover:text-primary_3 transition-colors duration-300">
         <Icon path={mdiGithub} size={1} />
       </a>
-      <a href={socials?.instagram} target="__blank">
+      <a href={socials?.instagram} target="__blank" className="hover:text-primary_3 transition-colors duration-300">
         <Icon path={mdiInstagram} size={1} />
       </a>
     </footer>

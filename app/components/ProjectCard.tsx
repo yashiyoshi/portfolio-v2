@@ -26,7 +26,7 @@ export default function ProjectCard() {
         const imageUrl = project.image?.fields?.file?.url;
 
         return (
-          <div key={index} className="flex flex-col p-4 rounded-md hover:bg-primary_2 hover:bg-opacity-5 transition ease-in-out duration-300">
+          <div key={index} className="flex flex-col p-4 rounded-md bg-primary_2 bg-opacity-5 lg:bg-opacity-0 hover:bg-primary_2 hover:bg-opacity-5 transition ease-in-out duration-300">
             {imageUrl && (
               <div className="relative w-full h-0 pb-[50%] overflow-hidden rounded-sm">
                 <Image
