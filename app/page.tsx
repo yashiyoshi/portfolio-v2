@@ -186,7 +186,7 @@ export default function Page() {
                 •{" "}
                 {profile?.availabilityStatus
                   ? "Available for work"
-                  : "Unavailable for work"}
+                  : "Unavailable for additional work"}
               </p>
               <div className="indent-4 text-white text-xs sm:text-sm">
                 <p>{profile?.position1}</p>
